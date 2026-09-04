@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NPCI Multi-Rail Switch & Circular 222 Settlement Engine</title>
+  <title>NPCI Multi-Rail Gateway Cockpit & Architecture Blueprint</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,32 +11,56 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
-    @keyframes continuous-packet-flow { 0% { stroke-dashoffset: 40; } 100% { stroke-dashoffset: 0; } }
-    .flow-forward { stroke-dasharray: 6 6; animation: continuous-packet-flow 1.1s linear infinite; }
-    .flow-return { stroke-dasharray: 6 6; animation: continuous-packet-flow 1.4s linear infinite reverse; }
+    
+    @keyframes continuous-packet-flow {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .flow-forward {
+      stroke-dasharray: 6 6;
+      animation: continuous-packet-flow 1.1s linear infinite;
+    }
+    .flow-return {
+      stroke-dasharray: 6 6;
+      animation: continuous-packet-flow 1.4s linear infinite reverse;
+    }
+    
     @keyframes pulse-burst {
       0% { filter: drop-shadow(0 0 1px #0284c7); stroke-width: 2; }
       50% { filter: drop-shadow(0 0 8px #0284c7); stroke-width: 3.5; }
       100% { filter: drop-shadow(0 0 1px #0284c7); stroke-width: 2; }
     }
-    .dispatch-pulse { animation: pulse-burst 0.7s ease-in-out; }
+    .dispatch-pulse {
+      animation: pulse-burst 0.7s ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-[#0f172a] min-h-screen p-4 md:p-8 selection:bg-sky-100 selection:text-sky-900">
 
-  <div class="max-w-7xl mx-auto space-y-8">
+  <div class="max-w-7xl mx-auto space-y-6">
 
-    <!-- Global View Navigation & API Status Bar -->
-    <nav class="flex flex-col sm:flex-row items-center justify-between bg-white border border-slate-200/90 rounded-2xl px-6 py-3.5 shadow-sm gap-4">
+    <!-- Global View Switcher & API Live Status Bar -->
+    <nav class="flex flex-col md:flex-row items-center justify-between bg-white border border-slate-200/90 rounded-2xl px-6 py-3.5 shadow-sm gap-4">
       <div class="flex items-center gap-3">
         <span class="flex h-3 w-3 relative">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-600"></span>
         </span>
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-800">
-          FastAPI Engine: Connected to /dispatch-clean &bull; /settle-clean
+          NPCI Multi-Rail Gateway &bull; Live API Integration
         </span>
       </div>
+
+      <!-- Backend Connection Status Pill -->
+      <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-mono">
+        <span class="text-slate-500">FastAPI Rail Gateway:</span>
+        <span id="apiStatusBadge" class="font-bold text-emerald-700 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          POST /v1/npci/execute
+        </span>
+      </div>
+
+      <!-- View Switcher -->
       <div class="flex items-center gap-2 bg-slate-100/80 p-1 rounded-xl border border-slate-200">
         <button id="navTab1" onclick="switchView('page1')" class="px-4 py-1.5 rounded-lg text-xs font-mono font-bold transition-all shadow-sm bg-white text-sky-700 border border-slate-200/80">
           View 1: Operational Switch Cockpit
@@ -48,7 +72,7 @@
     </nav>
 
     <!-- ========================================================================= -->
-    <!-- VIEW 1: COMPLETE PRODUCTION OPERATIONAL COCKPIT                           -->
+    <!-- VIEW 1: OPERATIONAL COCKPIT WITH REAL FASTAPI DISPATCH                    -->
     <!-- ========================================================================= -->
     <main id="viewPage1" class="space-y-8">
 
@@ -57,118 +81,118 @@
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-50 text-sky-700 border border-sky-200">
-              Financial Technology Blueprint
+              Interactive Financial Grid
             </span>
             <span class="text-slate-300">&bull;</span>
-            <span class="text-xs font-semibold text-slate-500 font-mono">17 Operational Rails</span>
+            <span class="text-xs font-semibold text-slate-500 font-mono">17 Live Operational Schemes[cite: 1]</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-            NPCI Multi-Rail Switch &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-indigo-600">Circular 222 Settlement Engine</span>
+            NPCI Multi-Rail Switch &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-indigo-600">Circular 222 Engine</span>
           </h1>
           <p class="text-xs md:text-sm text-slate-600 mt-1.5 max-w-3xl leading-relaxed">
-            High-Level Layer-7 Load Balancer, 5-Party Latency Telemetry, and Multilateral Net Finality at RBI e-Kuber.
+            Directly connected to <code class="bg-slate-100 text-sky-800 px-1.5 py-0.5 rounded font-mono text-xs">/v1/npci/execute</code>. Evaluates hop-by-hop latency telemetry across client apps, Remitter PSPs, Layer-7 switch core, dual CBS execution, and RBI e-Kuber multilateral net finality[cite: 1, 2].
           </p>
         </div>
 
         <div class="flex flex-wrap md:flex-col items-start md:items-end gap-2.5 shrink-0">
           <div class="px-3.5 py-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold rounded-xl flex items-center gap-2 shadow-sm">
             <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
-            <span>RBI e-Kuber: ACTIVE</span>
+            <span>RBI e-Kuber: ACTIVE[cite: 1]</span>
           </div>
           <div class="px-3.5 py-1.5 bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono font-medium rounded-xl">
-            Circular 222 (C1ñC10 &amp; DC1/DC2)
+            Circular 222 (C1‚ÄìC10 &amp; DC1/DC2)[cite: 1, 2]
           </div>
         </div>
       </header>
 
-      <!-- 17-Rail Product Grid Hub -->
+      <!-- 17-Rail Scheme Hub -->
       <section class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
           <div>
             <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
               <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-              Select Active Payment Rail (17 Live Schemes)
+              Select Active Payment Rail (17 Live Schemes)[cite: 1]
             </h2>
-            <p class="text-xs text-slate-500 mt-0.5">Click any rail to dynamically update the sequence map, message models, and clearing guardrails.</p>
+            <p class="text-xs text-slate-500 mt-0.5">Dispatches transaction payload matching the selected scheme directly to the FastAPI Multi-Rail Gateway[cite: 1].</p>
           </div>
           <span class="text-xs font-mono text-sky-700 bg-sky-50 border border-sky-200 px-3.5 py-1.5 rounded-xl font-bold w-fit" id="activeRailBadge">
             Selected: UPI_P2M
           </span>
         </div>
 
-        <!-- Rail Cards 17-Grid -->
+        <!-- Rail Cards Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6" id="railCardsGrid"></div>
 
-        <!-- Active Rail Deep-Dive Details -->
+        <!-- Active Rail Technical Deep-Dive Panel -->
         <div id="productDetailCard" class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-xs space-y-4 shadow-inner"></div>
       </section>
 
-      <!-- Layer-7 Architecture & 5-Party Kinetic Sequence -->
+      <!-- Interactive 5-Party Sequence Blueprint -->
       <section class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm overflow-hidden">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
           <div>
             <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
               <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-              Live Layer-7 Switch Topology &amp; Kinetic Sequence Lanes
+              Live Layer-7 Switch Topology &amp; Kinetic Sequence Lanes[cite: 1]
             </h2>
-            <p class="text-xs text-slate-500 mt-0.5">End-to-end packet traversal with continuous telemetry across the 5 authoritative participants.</p>
+            <p class="text-xs text-slate-500 mt-0.5">End-to-end traversal across the 5 authoritative participants[cite: 1].</p>
           </div>
           <div class="flex items-center gap-2 text-xs font-mono text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200 font-semibold w-fit">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Switch Status: LIVE (Continuous Stream)</span>
+            <span>Switch Status: LIVE (Continuous Stream)[cite: 1]</span>
           </div>
         </div>
 
-        <!-- 5-Party Cards -->
+        <!-- 5-Party Participant Cards -->
         <div class="grid grid-cols-1 md:grid-cols-5 gap-3.5 mb-6">
           <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 shadow-sm">
-            <span class="text-[10px] font-mono font-bold text-sky-600 uppercase block mb-1">Party 01</span>
+            <span class="text-[10px] font-mono font-bold text-sky-600 uppercase block mb-1">Party 01[cite: 1]</span>
             <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>??</span> Payer Client App
+              <span>üì±</span> Payer Client App[cite: 1]
             </div>
             <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-              TPAP Layer (GPay, PhonePe, Cred, ERP). Signs payload with device binding tokens &amp; encrypts MPIN via Common Library (CL).
+              TPAP Layer. Signs device tokens &amp; encrypts MPIN inside Common Library (CL) isolated memory[cite: 1].
             </p>
           </div>
           <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 shadow-sm">
-            <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase block mb-1">Party 02</span>
+            <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase block mb-1">Party 02[cite: 1]</span>
             <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>??</span> Remitter PSP Bank
+              <span>üè¶</span> Remitter PSP Bank[cite: 1]
             </div>
             <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-              Payer Gateway (Axis, HDFC). Validates device fingerprinting, velocity risk, and packages ISO 20022 pain.001 envelopes.
+              Terminates TLS, runs velocity risk checks, and packages the ISO 20022 pain.001 envelope[cite: 1].
             </p>
           </div>
           <div class="bg-sky-50/70 border border-sky-200 rounded-2xl p-4 shadow-sm">
-            <span class="text-[10px] font-mono font-bold text-teal-700 uppercase block mb-1">Party 03</span>
+            <span class="text-[10px] font-mono font-bold text-teal-700 uppercase block mb-1">Party 03[cite: 1]</span>
             <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>?</span> NPCI L7 Switch Core
+              <span>‚ö°</span> NPCI L7 Switch Core[cite: 1]
             </div>
             <p class="text-[11px] text-slate-700 mt-1.5 leading-relaxed">
-              Layer-7 switch connecting 700+ banks. Mints 12-digit Julian RRN, verifies HSM credentials, and fires dual CBS legs in parallel.
+              Layer-7 routing. Mints 12-digit Julian Reference Retrieval Number, decrypts HSM, and fires dual CBS legs[cite: 1].
             </p>
           </div>
           <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 shadow-sm">
-            <span class="text-[10px] font-mono font-bold text-amber-600 uppercase block mb-1">Party 04</span>
+            <span class="text-[10px] font-mono font-bold text-amber-600 uppercase block mb-1">Party 04[cite: 1]</span>
             <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>???</span> Dual Bank CBS
+              <span>üèõÔ∏è</span> Dual Bank CBS[cite: 1]
             </div>
             <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-              Remitter CBS debits customer funds; Beneficiary CBS credits payee. Both emit ISO 8583 MTI 0210 / 200 OK confirmations.
+              Remitter CBS debits funds (ISO 8583 MTI 0210); Beneficiary CBS confirms credit advice (pacs.008)[cite: 1].
             </p>
           </div>
           <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 shadow-sm">
-            <span class="text-[10px] font-mono font-bold text-emerald-700 uppercase block mb-1">Party 05</span>
+            <span class="text-[10px] font-mono font-bold text-emerald-700 uppercase block mb-1">Party 05[cite: 1]</span>
             <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>????</span> RBI e-Kuber RTGS
+              <span>üáÆüá≥</span> RBI e-Kuber RTGS[cite: 1]
             </div>
             <p class="text-[11px] text-slate-700 mt-1.5 leading-relaxed">
-              Central bank core system. Aggregates Circular 222 net obligations into a single settlement, achieving legal finality (PSS Act ß23).
+              Central bank settlement. Aggregates Circular 222 multilateral obligations (PSS Act ¬ß23 finality)[cite: 1].
             </p>
           </div>
         </div>
 
-        <!-- Kinetic SVG Map -->
+        <!-- Live Vector Sequence Map -->
         <div class="w-full overflow-x-auto border border-slate-200 rounded-2xl bg-white p-4">
           <svg id="architectureSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 480" width="100%" height="auto" class="min-w-[980px]">
             <defs>
@@ -182,67 +206,160 @@
                 <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
               </marker>
             </defs>
+
+            <!-- Swimlanes -->
             <g transform="translate(10, 15)">
-              <rect x="0" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/><text x="85" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">1. Payer Client App</text><line x1="85" y1="34" x2="85" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
-              <rect x="220" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/><text x="305" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">2. Payer PSP Bank</text><line x1="305" y1="34" x2="305" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
-              <rect x="440" y="0" width="220" height="34" rx="10" fill="#0f2b5c"/><text x="550" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#ffffff">3. NPCI Central Switch</text><line x1="550" y1="34" x2="550" y2="445" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4"/>
-              <rect x="710" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/><text x="795" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">4. Remitter CBS (Debit)</text><line x1="795" y1="34" x2="795" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
-              <rect x="930" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/><text x="1015" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">5. Beneficiary CBS (Credit)</text><line x1="1015" y1="34" x2="1015" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
-              <rect x="1140" y="0" width="160" height="34" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/><text x="1220" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#065f46">6. RBI e-Kuber (RTGS)</text><line x1="1220" y1="34" x2="1220" y2="445" stroke="#10b981" stroke-dasharray="4"/>
+              <rect x="0" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+              <text x="85" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">1. Payer Client App[cite: 1]</text>
+              <line x1="85" y1="34" x2="85" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
+
+              <rect x="220" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+              <text x="305" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">2. Payer PSP Bank[cite: 1]</text>
+              <line x1="305" y1="34" x2="305" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
+
+              <rect x="440" y="0" width="220" height="34" rx="10" fill="#0f2b5c"/>
+              <text x="550" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#ffffff">3. NPCI Central Switch[cite: 1]</text>
+              <line x1="550" y1="34" x2="550" y2="445" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4"/>
+
+              <rect x="710" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+              <text x="795" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">4. Remitter CBS (Debit)[cite: 1]</text>
+              <line x1="795" y1="34" x2="795" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
+
+              <rect x="930" y="0" width="170" height="34" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+              <text x="1015" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#0f2b5c">5. Beneficiary CBS (Credit)[cite: 1]</text>
+              <line x1="1015" y1="34" x2="1015" y2="445" stroke="#e2e8f0" stroke-dasharray="4"/>
+
+              <rect x="1140" y="0" width="160" height="34" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+              <text x="1220" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#065f46">6. RBI e-Kuber (RTGS)[cite: 1]</text>
+              <line x1="1220" y1="34" x2="1220" y2="445" stroke="#10b981" stroke-dasharray="4"/>
             </g>
+
+            <!-- Traversal Beams -->
             <g transform="translate(10, 65)">
-              <line id="beam1" class="flow-forward" x1="85" y1="20" x2="305" y2="20" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/><text x="195" y="13" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">1. ReqPay [pain.001 Intent + MPIN]</text>
-              <line id="beam2" class="flow-forward" x1="305" y1="52" x2="550" y2="52" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/><text x="427" y="45" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">2. TLS Termination &amp; Validate VPA / Scheme</text>
-              <rect x="490" y="72" width="120" height="24" rx="6" fill="#e0f2fe" stroke="#0284c7"/><text x="550" y="88" font-size="8.5" font-weight="700" text-anchor="middle" fill="#0369a1">GENERATE 12-DIGIT RRN</text>
-              <line id="beam3" class="flow-forward" x1="550" y1="114" x2="795" y2="114" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/><text x="672" y="107" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">3. Check Balance / Place Lien (ISO MTI 0200)</text>
-              <line id="beam4" class="flow-return" x1="795" y1="146" x2="550" y2="146" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr-gray)"/><text x="672" y="139" font-size="9.5" font-weight="600" text-anchor="middle" fill="#475569">4. 200 OK (Remitter Account Debited/Held)</text>
-              <line id="beam5" class="flow-forward" x1="550" y1="180" x2="1015" y2="180" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/><text x="782" y="173" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">5. Credit Advice (ISO pacs.008 Transfer)</text>
-              <line id="beam6" class="flow-return" x1="1015" y1="212" x2="550" y2="212" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr-gray)"/><text x="782" y="205" font-size="9.5" font-weight="600" text-anchor="middle" fill="#475569">6. 200 OK (Beneficiary Account Credited)</text>
-              <line id="beam7" class="flow-forward" x1="550" y1="244" x2="85" y2="244" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/><text x="317" y="237" font-size="9.5" font-weight="700" text-anchor="middle" fill="#15803d">7. RespPay (Instant Confirmation Push)</text>
-              <rect x="445" y="264" width="210" height="28" rx="8" fill="#f0fdf4" stroke="#16a34a"/><text x="550" y="282" font-size="8.5" font-weight="700" text-anchor="middle" fill="#166534">ATOMIC DOUBLE-ENTRY COMMIT</text>
-              <rect x="50" y="306" width="1210" height="24" rx="6" fill="#fffbeb" stroke="#f59e0b"/><text x="655" y="322" font-size="10" font-weight="700" text-anchor="middle" fill="#b45309">CIRCULAR 222 CUT-OFF WINDOW (10 Auth Cycles C1ñC10 &amp; 2 Dispute Cycles DC1 / DC2)</text>
-              <line id="beam8" class="flow-forward" x1="550" y1="360" x2="1220" y2="360" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/><text x="885" y="352" font-size="9.5" font-weight="700" text-anchor="middle" fill="#15803d">8. Post Multilateral Batch Net Obligations to Reserve Accounts</text>
-              <line id="beam9" class="flow-return" x1="1220" y1="394" x2="550" y2="394" stroke="#475569" stroke-width="1.8" marker-end="url(#arr-gray)"/><text x="885" y="386" font-size="9.5" font-weight="600" text-anchor="middle" fill="#334155">9. Settle Reserve Accounts &amp; Issue ISO 20022 camt.053 Electronic Statement</text>
+              <line id="beam1" class="flow-forward" x1="85" y1="20" x2="305" y2="20" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/>
+              <text x="195" y="13" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">1. ReqPay [pain.001 Intent + MPIN][cite: 1]</text>
+
+              <line id="beam2" class="flow-forward" x1="305" y1="52" x2="550" y2="52" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/>
+              <text x="427" y="45" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">2. TLS Termination &amp; Validate VPA / Scheme[cite: 1]</text>
+
+              <rect x="490" y="72" width="120" height="24" rx="6" fill="#e0f2fe" stroke="#0284c7"/>
+              <text x="550" y="88" font-size="8.5" font-weight="700" text-anchor="middle" fill="#0369a1">GENERATE 12-DIGIT RRN[cite: 1]</text>
+
+              <line id="beam3" class="flow-forward" x1="550" y1="114" x2="795" y2="114" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/>
+              <text x="672" y="107" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">3. Check Balance / Place Lien (ISO MTI 0200)[cite: 1]</text>
+
+              <line id="beam4" class="flow-return" x1="795" y1="146" x2="550" y2="146" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+              <text x="672" y="139" font-size="9.5" font-weight="600" text-anchor="middle" fill="#475569">4. 200 OK (Remitter Account Debited/Held)[cite: 1]</text>
+
+              <line id="beam5" class="flow-forward" x1="550" y1="180" x2="1015" y2="180" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-blue)"/>
+              <text x="782" y="173" font-size="9.5" font-weight="600" text-anchor="middle" fill="#0369a1">5. Credit Advice (ISO pacs.008 Transfer)[cite: 1]</text>
+
+              <line id="beam6" class="flow-return" x1="1015" y1="212" x2="550" y2="212" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+              <text x="782" y="205" font-size="9.5" font-weight="600" text-anchor="middle" fill="#475569">6. 200 OK (Beneficiary Account Credited)[cite: 1]</text>
+
+              <line id="beam7" class="flow-forward" x1="550" y1="244" x2="85" y2="244" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/>
+              <text x="317" y="237" font-size="9.5" font-weight="700" text-anchor="middle" fill="#15803d">7. RespPay (Instant Confirmation Push)[cite: 1]</text>
+
+              <rect x="445" y="264" width="210" height="28" rx="8" fill="#f0fdf4" stroke="#16a34a"/>
+              <text x="550" y="282" font-size="8.5" font-weight="700" text-anchor="middle" fill="#166534">ATOMIC DOUBLE-ENTRY COMMIT[cite: 1]</text>
+
+              <rect x="50" y="306" width="1210" height="24" rx="6" fill="#fffbeb" stroke="#f59e0b"/>
+              <text x="655" y="322" font-size="10" font-weight="700" text-anchor="middle" fill="#b45309">
+                CIRCULAR 222 CUT-OFF WINDOW (10 Auth Cycles C1‚ÄìC10 &amp; 2 Dispute Cycles DC1 / DC2)[cite: 1]
+              </text>
+
+              <line id="beam8" class="flow-forward" x1="550" y1="360" x2="1220" y2="360" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/>
+              <text x="885" y="352" font-size="9.5" font-weight="700" text-anchor="middle" fill="#15803d">
+                8. Post Multilateral Batch Net Obligations to Reserve Accounts[cite: 1]
+              </text>
+
+              <line id="beam9" class="flow-return" x1="1220" y1="394" x2="550" y2="394" stroke="#475569" stroke-width="1.8" marker-end="url(#arr-gray)"/>
+              <text x="885" y="386" font-size="9.5" font-weight="600" text-anchor="middle" fill="#334155">
+                9. Settle Reserve Accounts &amp; Issue ISO 20022 camt.053 Electronic Statement[cite: 1]
+              </text>
             </g>
           </svg>
+        </div>
+      </section>
+
+      <!-- Step-by-Step Process Explainer -->
+      <section class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            Comprehensive Step-by-Step Transaction Walkthrough
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">How a packet travels across 5 parties in milliseconds while settling through deferred multilateral net finality[cite: 1, 2].</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+            <div class="flex items-center gap-2 font-mono font-bold text-xs text-sky-700">
+              <span class="w-5 h-5 rounded-full bg-sky-200 flex items-center justify-center text-[10px]">1</span>
+              <span>ReqPay &amp; Device Signing[cite: 1]</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-relaxed">
+              The user scans a QR or approves an intent. The TPAP invokes the Common Library (CL) to encrypt credentials inside device-isolated memory[cite: 1]. The PSP verifies certificates and compiles the ISO 20022 <code class="font-mono bg-slate-200 px-1 rounded">pain.001</code> envelope[cite: 1].
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+            <div class="flex items-center gap-2 font-mono font-bold text-xs text-teal-700">
+              <span class="w-5 h-5 rounded-full bg-teal-200 flex items-center justify-center text-[10px]">2</span>
+              <span>Switch Coordination &amp; CBS Debit[cite: 1]</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-relaxed">
+              NPCI switch terminates TLS, decrypts payload via HSMs, and mints an immutable 12-digit Julian Reference Retrieval Number[cite: 1]. It transforms the instruction into an ISO 8583 <code class="font-mono bg-slate-200 px-1 rounded">MTI 0200</code> debit call sent to the Remitter Core Banking System[cite: 1].
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+            <div class="flex items-center gap-2 font-mono font-bold text-xs text-emerald-700">
+              <span class="w-5 h-5 rounded-full bg-emerald-200 flex items-center justify-center text-[10px]">3</span>
+              <span>Beneficiary Credit &amp; Net Settlement[cite: 1]</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-relaxed">
+              Once debited, the switch fires a parallel <code class="font-mono bg-slate-200 px-1 rounded">pacs.008</code> credit instruction to the payee's bank[cite: 1]. Both legs return 200 OK, the client receives instant confirmation, and the record queues for Circular 222 multilateral net posting at RBI e-Kuber[cite: 1].
+            </p>
+          </div>
         </div>
       </section>
 
       <!-- Operational Cockpit Controls & Live Dispatcher -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Left: Circular 222 Clearing Timetable Matrix -->
+        <!-- Circular 222 Window Table -->
         <section class="lg:col-span-6 space-y-6">
           <div class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
               <div>
                 <h2 class="text-xs uppercase tracking-wider font-extrabold text-slate-800 flex items-center gap-2">
                   <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  Circular 222 Settlement Windows
+                  Circular 222 Settlement Windows[cite: 1]
                 </h2>
-                <p class="text-[11px] text-slate-500 mt-0.5">Partitioning commercial authorizations from dispute resolutions.</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Partitioning commercial authorizations from dispute resolutions[cite: 1].</p>
               </div>
-              <span class="text-[10px] font-mono bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-lg font-bold">12 Windows</span>
+              <span class="text-[10px] font-mono bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-lg font-bold">12 Windows[cite: 1]</span>
             </div>
 
             <div class="overflow-x-auto">
               <table class="w-full text-[11px] font-mono border border-slate-200 rounded-xl overflow-hidden">
                 <thead>
                   <tr class="bg-slate-100/80 text-slate-800 text-left">
-                    <th class="p-2.5 border-b border-slate-200">Cycle</th>
-                    <th class="p-2.5 border-b border-slate-200">Cut-Off</th>
-                    <th class="p-2.5 border-b border-slate-200">Session Scope</th>
-                    <th class="p-2.5 border-b border-slate-200">Settlement Engine</th>
+                    <th class="p-2.5 border-b border-slate-200">Cycle[cite: 1]</th>
+                    <th class="p-2.5 border-b border-slate-200">Cut-Off[cite: 1]</th>
+                    <th class="p-2.5 border-b border-slate-200">Session Scope[cite: 1]</th>
+                    <th class="p-2.5 border-b border-slate-200">Settlement Engine[cite: 1]</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 text-slate-600">
-                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C1</td><td class="p-2">08:00ñ10:00</td><td class="p-2">Morning peak authorization batch</td><td class="p-2">e-Kuber RTGS</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C2</td><td class="p-2">10:00ñ11:30</td><td class="p-2">Mid-morning clearing batch</td><td class="p-2">e-Kuber RTGS</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C3</td><td class="p-2">11:30ñ13:00</td><td class="p-2">Noon clearing batch</td><td class="p-2">e-Kuber RTGS</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C4ñC9</td><td class="p-2">13:00ñ22:00</td><td class="p-2">Afternoon &amp; evening clearing batches</td><td class="p-2">e-Kuber RTGS</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C10</td><td class="p-2">22:00ñ23:59</td><td class="p-2">End-of-day final authorization cut-off</td><td class="p-2">e-Kuber RTGS</td></tr>
-                  <tr class="bg-amber-50/50 hover:bg-amber-50"><td class="p-2 font-bold text-amber-700">DC1</td><td class="p-2">00:00ñ16:00</td><td class="p-2">URCS Online Chargebacks &amp; Auto-Reversals 1</td><td class="p-2 font-bold text-amber-700">Dispute Netting</td></tr>
-                  <tr class="bg-amber-50/50 hover:bg-amber-50"><td class="p-2 font-bold text-amber-700">DC2</td><td class="p-2">16:00ñ24:00</td><td class="p-2">URCS Online Chargebacks &amp; Auto-Reversals 2</td><td class="p-2 font-bold text-amber-700">Dispute Netting</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C1</td><td class="p-2">08:00‚Äì10:00</td><td class="p-2">Morning peak authorization batch</td><td class="p-2">e-Kuber RTGS</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C2</td><td class="p-2">10:00‚Äì11:30</td><td class="p-2">Mid-morning clearing batch</td><td class="p-2">e-Kuber RTGS</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C3</td><td class="p-2">11:30‚Äì13:00</td><td class="p-2">Noon clearing batch</td><td class="p-2">e-Kuber RTGS</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C4‚ÄìC9</td><td class="p-2">13:00‚Äì22:00</td><td class="p-2">Afternoon &amp; evening clearing batches</td><td class="p-2">e-Kuber RTGS</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="p-2 font-bold text-sky-600">C10</td><td class="p-2">22:00‚Äì23:59</td><td class="p-2">End-of-day final authorization cut-off</td><td class="p-2">e-Kuber RTGS</td></tr>
+                  <tr class="bg-amber-50/50 hover:bg-amber-50"><td class="p-2 font-bold text-amber-700">DC1</td><td class="p-2">00:00‚Äì16:00</td><td class="p-2">URCS Online Chargebacks &amp; Auto-Reversals 1</td><td class="p-2 font-bold text-amber-700">Dispute Netting</td></tr>
+                  <tr class="bg-amber-50/50 hover:bg-amber-50"><td class="p-2 font-bold text-amber-700">DC2</td><td class="p-2">16:00‚Äì24:00</td><td class="p-2">URCS Online Chargebacks &amp; Auto-Reversals 2</td><td class="p-2 font-bold text-amber-700">Dispute Netting</td></tr>
                 </tbody>
               </table>
             </div>
@@ -252,20 +369,20 @@
         <!-- Right: Dispatcher, Telemetry Feed & Netting Cockpit -->
         <aside class="lg:col-span-6 space-y-6">
 
-          <!-- Trigger Switch Authorization -->
+          <!-- Dispatch to FastAPI Gateway -->
           <div class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xs font-extrabold uppercase tracking-wider text-sky-600 flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                Trigger Switch Authorization
+                Trigger Gateway Execution
               </h3>
-              <span class="text-[10px] font-mono text-slate-400">Endpoint: POST /dispatch-clean</span>
+              <span class="text-[10px] font-mono text-slate-400">Endpoint: POST /v1/npci/execute</span>
             </div>
 
             <div class="space-y-4 text-xs">
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-slate-500 font-semibold mb-1">Payer Bank</label>
+                  <label class="block text-slate-500 font-semibold mb-1">Payer Bank[cite: 1]</label>
                   <select id="payerBank" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 font-mono focus:outline-none focus:border-sky-500">
                     <option value="HDFC">HDFC Bank</option>
                     <option value="SBI">State Bank of India</option>
@@ -273,7 +390,7 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-slate-500 font-semibold mb-1">Payee Bank</label>
+                  <label class="block text-slate-500 font-semibold mb-1">Payee Bank[cite: 1]</label>
                   <select id="payeeBank" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 font-mono focus:outline-none focus:border-sky-500">
                     <option value="ICICI">ICICI Bank</option>
                     <option value="KOTAK">Kotak Mahindra</option>
@@ -284,30 +401,30 @@
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-slate-500 font-semibold mb-1">Amount (&#8377; INR)</label>
-                  <input id="amountInput" type="number" value="1500" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 font-mono focus:outline-none focus:border-sky-500">
+                  <label class="block text-slate-500 font-semibold mb-1">Amount (&#8377; INR)[cite: 1]</label>
+                  <input id="amountInput" type="number" value="2500" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 font-mono focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
-                  <label class="block text-slate-500 font-semibold mb-1">Target Cycle</label>
+                  <label class="block text-slate-500 font-semibold mb-1">Target Cycle[cite: 1]</label>
                   <select id="cycleSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 font-mono focus:outline-none focus:border-sky-500">
-                    <option value="C1">C1 (08:00ñ10:00)</option>
-                    <option value="C2">C2 (10:00ñ11:30)</option>
-                    <option value="C3">C3 (11:30ñ13:00)</option>
-                    <option value="C4">C4 (13:00ñ14:30)</option>
-                    <option value="C5">C5 (14:30ñ16:00)</option>
-                    <option value="C6">C6 (16:00ñ17:30)</option>
-                    <option value="C7">C7 (17:30ñ19:00)</option>
-                    <option value="C8">C8 (19:00ñ20:30)</option>
-                    <option value="C9">C9 (20:30ñ22:00)</option>
-                    <option value="C10">C10 (22:00ñ23:59)</option>
-                    <option value="DC1">DC1 (Disputes 00:00ñ16:00)</option>
-                    <option value="DC2">DC2 (Disputes 16:00ñ24:00)</option>
+                    <option value="C1">C1 (08:00‚Äì10:00)</option>
+                    <option value="C2">C2 (10:00‚Äì11:30)</option>
+                    <option value="C3">C3 (11:30‚Äì13:00)</option>
+                    <option value="C4">C4 (13:00‚Äì14:30)</option>
+                    <option value="C5">C5 (14:30‚Äì16:00)</option>
+                    <option value="C6">C6 (16:00‚Äì17:30)</option>
+                    <option value="C7">C7 (17:30‚Äì19:00)</option>
+                    <option value="C8">C8 (19:00‚Äì20:30)</option>
+                    <option value="C9">C9 (20:30‚Äì22:00)</option>
+                    <option value="C10">C10 (22:00‚Äì23:59)</option>
+                    <option value="DC1">DC1 (Disputes 00:00‚Äì16:00)</option>
+                    <option value="DC2">DC2 (Disputes 16:00‚Äì24:00)</option>
                   </select>
                 </div>
               </div>
 
               <button id="dispatchBtn" onclick="dispatchLiveTxn()" class="w-full mt-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-                <span>Dispatch to /dispatch-clean</span>
+                <span>Dispatch to NPCI Gateway</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
             </div>
@@ -316,12 +433,12 @@
           <!-- 5-Party Latency Telemetry Feed -->
           <div class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm">
             <div class="flex justify-between items-center mb-3">
-              <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-800">5-Party Latency Telemetry Feed</h3>
+              <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-800">5-Party Latency Telemetry Stream[cite: 1]</h3>
               <span id="txnCountBadge" class="text-[11px] font-mono font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-lg border border-sky-100">0 txns</span>
             </div>
-            <div id="telemetryFeed" class="h-56 overflow-y-auto space-y-2.5 text-xs font-mono pr-1">
+            <div id="telemetryFeed" class="h-52 overflow-y-auto space-y-2.5 text-xs font-mono pr-1">
               <div class="text-slate-400 italic text-center p-6 bg-slate-50 rounded-xl border border-slate-100">
-                Switch idle. Click 'Dispatch to /dispatch-clean' above.
+                Switch idle. Click 'Dispatch to NPCI Gateway' above[cite: 1].
               </div>
             </div>
           </div>
@@ -330,9 +447,9 @@
           <div class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm">
             <h3 class="text-xs font-extrabold uppercase tracking-wider text-teal-600 mb-2 flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Circular 222 Multilateral Netting
+              Circular 222 Multilateral Netting[cite: 1]
             </h3>
-            <p class="text-[11px] text-slate-500 mb-3">Compute net positions for RBI e-Kuber posting. Verifies zero-sum proof: &sum;(Net) = 0.</p>
+            <p class="text-[11px] text-slate-500 mb-3">Compute net positions for RBI e-Kuber posting. Verifies zero-sum proof: &sum;(Net) = 0[cite: 1].</p>
             <div class="flex gap-2.5 mb-3">
               <select id="nettingCycleSelect" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-mono flex-1 focus:outline-none focus:border-teal-500">
                 <option value="C1">Run C1 Netting</option>
@@ -353,7 +470,7 @@
               </button>
             </div>
             <div id="nettingResults" class="h-44 overflow-y-auto space-y-2 text-[11px] font-mono bg-slate-50 p-3 rounded-xl border border-slate-200">
-              <div class="text-slate-400 italic text-center p-3">Click 'Run Netting' to execute e-Kuber batch settlement.</div>
+              <div class="text-slate-400 italic text-center p-3">No settlement executed yet[cite: 1].</div>
             </div>
           </div>
 
@@ -382,7 +499,7 @@
             NPCI Multi-Rail Ecosystem Topology &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-indigo-600">Unified PRD Enhancement Blueprint</span>
           </h1>
           <p class="text-xs md:text-sm text-slate-600 mt-2 max-w-4xl leading-relaxed">
-            Comprehensive enterprise mapping across NPCI parent core and subsidiaries (NBBL, NIPL, NETC), critical-path latency budgets, Deemed Debit mitigation, and zero-drop settlement orchestration under the Payment &amp; Settlement Systems Act, 2007 (ß23).
+            Enterprise mapping across NPCI parent core and subsidiaries (NBBL, NIPL, NETC), critical-path latency budgets, Deemed Debit mitigation, and zero-drop settlement orchestration under the Payment &amp; Settlement Systems Act, 2007 (¬ß23).
           </p>
         </div>
 
@@ -392,7 +509,7 @@
             <span>Settlement Engine: OC 222 ACTIVE</span>
           </div>
           <div class="px-3.5 py-1.5 bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono font-medium rounded-xl">
-            10 Auth (C1ñC10) + 2 Dispute (DC1/DC2) Cycles
+            10 Auth (C1‚ÄìC10) + 2 Dispute (DC1/DC2) Cycles
           </div>
         </div>
       </header>
@@ -449,7 +566,7 @@
             <span class="text-[10px] font-mono font-bold text-amber-600 uppercase block mb-1">RFID &amp; Specialized</span>
             <div class="font-extrabold text-sm text-slate-900">NETC &amp; Emerging Rails</div>
             <p class="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
-              Manages electronic toll clearing (FASTag edge cache), SEBI capital market IPO liens (UPI-ASBA), and sovereign CBDC (e?).
+              Manages electronic toll clearing (FASTag edge cache), SEBI capital market IPO liens (UPI-ASBA), and sovereign CBDC (e‚Çπ).
             </p>
           </div>
         </div>
@@ -485,28 +602,28 @@
 
         <div class="grid grid-cols-1 md:grid-cols-5 gap-3.5 text-xs">
           <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-            <span class="text-[10px] font-mono font-bold text-sky-600 block mb-1">Hop 1 &bull; 35ñ55 ms</span>
+            <span class="text-[10px] font-mono font-bold text-sky-600 block mb-1">Hop 1 &bull; 35‚Äì55 ms</span>
             <div class="font-bold text-slate-900">TPAP Client App</div>
             <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
               Generates device binding PKI tokens. Encrypts MPIN inside Common Library (CL) isolated memory envelope.
             </p>
           </div>
           <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-            <span class="text-[10px] font-mono font-bold text-indigo-600 block mb-1">Hop 2 &bull; 25ñ40 ms</span>
+            <span class="text-[10px] font-mono font-bold text-indigo-600 block mb-1">Hop 2 &bull; 25‚Äì40 ms</span>
             <div class="font-bold text-slate-900">Remitter PSP Bank</div>
             <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
               Mutual TLS termination, IP &amp; velocity fraud scoring, packaging into ISO 20022 pain.001 envelope.
             </p>
           </div>
           <div class="p-4 bg-sky-50/70 border border-sky-200 rounded-2xl">
-            <span class="text-[10px] font-mono font-bold text-teal-700 block mb-1">Hop 3 &bull; 15ñ30 ms</span>
+            <span class="text-[10px] font-mono font-bold text-teal-700 block mb-1">Hop 3 &bull; 15‚Äì30 ms</span>
             <div class="font-bold text-slate-900">NPCI L7 Central Switch</div>
             <p class="text-[11px] text-slate-700 mt-1 leading-relaxed">
               Mints 12-digit Julian Reference Retrieval Number, decrypts HSM, and invokes dual Core Banking (CBS) legs in parallel.
             </p>
           </div>
           <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-            <span class="text-[10px] font-mono font-bold text-amber-600 block mb-1">Hop 4 &bull; 190ñ430 ms</span>
+            <span class="text-[10px] font-mono font-bold text-amber-600 block mb-1">Hop 4 &bull; 190‚Äì430 ms</span>
             <div class="font-bold text-slate-900">Dual CBS Systems</div>
             <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
               Remitter CBS debits funds (ISO 8583 MTI 0210); Beneficiary CBS credits payee (pacs.008 credit confirmation).
@@ -516,7 +633,7 @@
             <span class="text-[10px] font-mono font-bold text-emerald-700 block mb-1">Hop 5 &bull; Deferred Batch</span>
             <div class="font-bold text-slate-900">RBI e-Kuber RTGS</div>
             <p class="text-[11px] text-slate-700 mt-1 leading-relaxed">
-              Multilateral Net Settlement Batch (MNSB) executed across reserve accounts under Circular 222 (PSS Act ß23).
+              Multilateral Net Settlement Batch (MNSB) executed across reserve accounts under Circular 222 (PSS Act ¬ß23).
             </p>
           </div>
         </div>
@@ -536,7 +653,7 @@
             </div>
             <div class="p-2.5 bg-slate-800/80 border border-slate-700 rounded-xl">
               <span class="text-teal-400 font-extrabold text-sm block">DDD (3 Digits)</span>
-              <span class="text-[10px] text-slate-400">Julian Day of Year (001ñ366)</span>
+              <span class="text-[10px] text-slate-400">Julian Day of Year (001‚Äì366)</span>
             </div>
             <div class="p-2.5 bg-slate-800/80 border border-slate-700 rounded-xl">
               <span class="text-amber-400 font-extrabold text-sm block">H (1 Digit)</span>
@@ -550,7 +667,7 @@
         </div>
       </section>
 
-      <!-- Phase 3: Friction Points & Vulnerability Diagnostics -->
+      <!-- Phase 3: Diagnostics & Gaps -->
       <section class="bg-white border border-slate-200/90 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
         <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
           <span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-mono font-extrabold">PHASE 03</span>
@@ -584,7 +701,7 @@
             </div>
             <div class="font-bold text-slate-900 text-sm">Circular 222 Intraday Liquidity Shocks</div>
             <p class="text-slate-600 leading-relaxed text-[11px]">
-              In peak cycles (<b>C1: 08:00ñ10:00</b> and <b>C8: 19:00ñ20:30</b>), asymmetric outflows can cause sponsor banks to breach their Net Debit Caps (NDC). If a bank lacks adequate reserve funds at e-Kuber cut-off, the zero-sum settlement batch halts, creating gridlock risk across member institutions.
+              In peak cycles (<b>C1: 08:00‚Äì10:00</b> and <b>C8: 19:00‚Äì20:30</b>), asymmetric outflows can cause sponsor banks to breach their Net Debit Caps (NDC). If a bank lacks adequate reserve funds at e-Kuber cut-off, the zero-sum settlement batch halts, creating gridlock risk across member institutions.
             </p>
             <div class="pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500">
               <b>Mitigation:</b> Continuous Real-Time Liquidity Monitoring (CRTLM) with early-warning collateral triggers at 80% NDC.
@@ -653,7 +770,7 @@
           </div>
         </div>
 
-        <!-- Quantitative SLA Targets -->
+        <!-- Quantitative SLAs -->
         <div class="space-y-3 pt-2">
           <h3 class="text-xs font-mono font-bold uppercase text-slate-700 tracking-wider">
             Quantitative SLA Performance Targets
@@ -692,35 +809,35 @@
           </div>
         </div>
 
-        <!-- Four-Phase Implementation Roadmap -->
+        <!-- Implementation Roadmap -->
         <div class="pt-4 border-t border-slate-100">
           <h3 class="text-xs font-mono font-bold uppercase text-slate-700 tracking-wider mb-4">
             Four-Phase Implementation Roadmap
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-mono">
             <div class="p-3.5 bg-slate-50 border-l-4 border-sky-600 rounded-xl space-y-1">
-              <span class="text-sky-700 font-bold block text-[10px]">M1ñM3 &bull; Phase 1</span>
+              <span class="text-sky-700 font-bold block text-[10px]">M1‚ÄìM3 &bull; Phase 1</span>
               <div class="font-bold text-slate-900 text-[11px]">Resilience &amp; Probing</div>
               <p class="text-slate-600 text-[10px] leading-relaxed">
                 Roll out adaptive circuit breakers to top-20 member banks covering 85% of retail throughput.
               </p>
             </div>
             <div class="p-3.5 bg-slate-50 border-l-4 border-teal-600 rounded-xl space-y-1">
-              <span class="text-teal-700 font-bold block text-[10px]">M4ñM6 &bull; Phase 2</span>
+              <span class="text-teal-700 font-bold block text-[10px]">M4‚ÄìM6 &bull; Phase 2</span>
               <div class="font-bold text-slate-900 text-[11px]">CRTLM Telemetry Bridge</div>
               <p class="text-slate-600 text-[10px] leading-relaxed">
                 Connect bank treasury portals directly to the netting accumulator; launch automated 80% NDC notifications.
               </p>
             </div>
             <div class="p-3.5 bg-slate-50 border-l-4 border-indigo-600 rounded-xl space-y-1">
-              <span class="text-indigo-700 font-bold block text-[10px]">M7ñM9 &bull; Phase 3</span>
+              <span class="text-indigo-700 font-bold block text-[10px]">M7‚ÄìM9 &bull; Phase 3</span>
               <div class="font-bold text-slate-900 text-[11px]">Sub-Hour URCS Pipeline</div>
               <p class="text-slate-600 text-[10px] leading-relaxed">
-                Transition auto-reversals to adjacent-cycle netting windows (C1ñC10) instead of delaying to DC1/DC2.
+                Transition auto-reversals to adjacent-cycle netting windows (C1‚ÄìC10) instead of delaying to DC1/DC2.
               </p>
             </div>
             <div class="p-3.5 bg-slate-50 border-l-4 border-amber-600 rounded-xl space-y-1">
-              <span class="text-amber-700 font-bold block text-[10px]">M10ñM12 &bull; Phase 4</span>
+              <span class="text-amber-700 font-bold block text-[10px]">M10‚ÄìM12 &bull; Phase 4</span>
               <div class="font-bold text-slate-900 text-[11px]">Subsidiary Integration</div>
               <p class="text-slate-600 text-[10px] leading-relaxed">
                 Extend ISO 20022 standardized telemetry and zero-drop patterns across NBBL, NETC, and NIPL bilateral rails.
@@ -735,12 +852,13 @@
     <!-- Global Footer -->
     <footer class="text-center py-4 text-xs font-mono text-slate-400 space-y-1 border-t border-slate-200">
       <div>National Payments Corporation of India &bull; Enterprise Product Management Suite</div>
-      <div class="text-[11px]">Grounded in Operating Circular NPCI/2025-26/UPI/222 &bull; Payment and Settlement Systems Act, 2007 (ß23)</div>
+      <div class="text-[11px]">Grounded in Operating Circular NPCI/2025-26/UPI/222 &bull; Payment and Settlement Systems Act, 2007 (¬ß23)</div>
     </footer>
 
   </div>
 
   <script>
+    // Tab Navigation
     function switchView(viewName) {
       const page1 = document.getElementById("viewPage1");
       const page2 = document.getElementById("viewPage2");
@@ -760,7 +878,7 @@
       }
     }
 
-    // Full 17 Rails Shared Dataset
+    // 17 Rails Dataset
     const railsData = [
       {
         code: "UPI_P2M",
@@ -769,8 +887,8 @@
         entity: "NPCI Core",
         protocol: "ISO 20022 / REST",
         envelopes: "pain.001, pacs.008, pacs.002",
-        clearing: "DNS: 10 Auth Cycles (C1ñC10)",
-        finality: "PSS Act ß23 at RBI e-Kuber",
+        clearing: "DNS: 10 Auth Cycles (C1‚ÄìC10)",
+        finality: "PSS Act ¬ß23 at RBI e-Kuber",
         logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><path d="M12 6L20 18L12 30H6L14 18L6 6H12Z" fill="#F47920"/><path d="M22 6L30 18L22 30H16L24 18L16 6H22Z" fill="#0F75BC"/><text x="36" y="22" font-family="'Plus Jakarta Sans'" font-weight="900" font-size="13" fill="#0f172a">UPI</text></svg>`,
         flow: "Customer scans dynamic/static signed QR -> Payer PSP verifies device binding -> Central Switch decrypts MPIN via HSM -> Remitter CBS debits account -> Beneficiary CBS credits merchant.",
         recon: "Circular 222: 10 Daily Intraday Authorization Cycles (C1 to C10) with settlement finality at RBI e-Kuber RTGS.",
@@ -783,7 +901,7 @@
         entity: "NPCI Core",
         protocol: "ISO 20022 XML / API",
         envelopes: "pain.001, pacs.008, XML VPA",
-        clearing: "DNS: 10 Auth Cycles (C1ñC10)",
+        clearing: "DNS: 10 Auth Cycles (C1‚ÄìC10)",
         finality: "MNSB File Posting at e-Kuber",
         logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><path d="M8 8H18C22 8 24 10 24 14C24 18 22 20 18 20H12V30H8V8Z" fill="#0F75BC"/><path d="M26 8L34 19L26 30H20L28 19L20 8H26Z" fill="#F47920"/><text x="38" y="22" font-family="'Plus Jakarta Sans'" font-weight="900" font-size="12" fill="#0f172a">P2P</text></svg>`,
         flow: "VPA handle / Mobile proxy resolution via central directory -> Parallel CBS authorization -> Real-time account-to-account credit advice.",
@@ -839,7 +957,7 @@
         entity: "NPCI Core",
         protocol: "IVR DTMF / Soundwave",
         envelopes: "Telecom Tone Gateway + ISO 20022",
-        clearing: "DNS: 10 Auth Cycles (C1ñC10)",
+        clearing: "DNS: 10 Auth Cycles (C1‚ÄìC10)",
         finality: "MNSB File Posting at e-Kuber",
         logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><rect x="7" y="7" width="14" height="22" rx="3" stroke="#F47920" stroke-width="2"/><circle cx="14" cy="23" r="1.5" fill="#0F75BC"/><text x="26" y="22" font-family="'Plus Jakarta Sans'" font-weight="800" font-size="10.5" fill="#0f172a">123PAY</text></svg>`,
         flow: "Inbound call to telecom IVR gateway or sound-wave receiver -> DTMF keypad tone verification -> Real-time interbank debit.",
@@ -867,7 +985,7 @@
         entity: "Specialized",
         protocol: "ISO 20022 XML",
         envelopes: "pain.001, pacs.008 (Credit Line)",
-        clearing: "DNS: 10 Auth Cycles (C1ñC10)",
+        clearing: "DNS: 10 Auth Cycles (C1‚ÄìC10)",
         finality: "Treasury Account Netting at e-Kuber",
         logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><rect x="6" y="9" width="20" height="16" rx="3" fill="#0F75BC"/><path d="M6 15H26" stroke="#F47920" stroke-width="1.8"/><text x="30" y="22" font-family="'Plus Jakarta Sans'" font-weight="800" font-size="11" fill="#0f172a">Credit</text></svg>`,
         flow: "Pre-sanctioned bank credit line mapped to UPI ID -> Real-time drawdown on lending bank CBS -> Merchant settlement.",
@@ -974,14 +1092,14 @@
       },
       {
         code: "CBDC_E_RUPEE",
-        name: "Digital Rupee (e?)",
+        name: "Digital Rupee (e‚Çπ)",
         category: "Sovereign CBDC",
         entity: "Specialized",
         protocol: "DLT / Cryptographic",
         envelopes: "Direct Token Hash Handover",
         clearing: "Real-Time Atomic Token Transfer",
         finality: "Instant Sovereign Ledger Finality",
-        logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><circle cx="14" cy="18" r="9" fill="#0F75BC"/><path d="M10 13H18M10 17H16M10 22L14 17" stroke="#ffffff" stroke-width="1.8"/><text x="27" y="24" font-family="'Plus Jakarta Sans'" font-weight="900" font-size="13" fill="#F47920">e?</text></svg>`,
+        logo: `<svg viewBox="0 0 100 36" class="w-12 h-6" fill="none"><circle cx="14" cy="18" r="9" fill="#0F75BC"/><path d="M10 13H18M10 17H16M10 22L14 17" stroke="#ffffff" stroke-width="1.8"/><text x="27" y="24" font-family="'Plus Jakarta Sans'" font-weight="900" font-size="13" fill="#F47920">e‚Çπ</text></svg>`,
         flow: "Direct wallet-to-wallet transfer of sovereign digital cash tokens issued directly by RBI -> Cryptographic signature verified -> Instant token handover.",
         recon: "Instant tokenized finality. Zero interbank reserve account netting required.",
         risk: "Low. Sovereign liability backed directly by the Reserve Bank of India."
@@ -1004,7 +1122,7 @@
 
     let currentRailCode = "UPI_P2M";
 
-    // Populate Rail Cards Grid
+    // Populate Rail Cards
     const grid = document.getElementById("railCardsGrid");
     railsData.forEach(r => {
       const card = document.createElement("button");
@@ -1074,7 +1192,7 @@
 
     selectRail("UPI_P2M");
 
-    // Autonomous Ledger & Netting Simulator State
+    // Autonomous Ledger & Netting State
     let ledgerRecords = [];
     let accounts = {
       'HDFC': { balance: 0 },
@@ -1099,6 +1217,9 @@
       });
     }
 
+    // =========================================================================
+    // FASTAPI INTEGRATION: POST /v1/npci/execute
+    // =========================================================================
     async function dispatchLiveTxn() {
       const rail = currentRailCode;
       const payer = document.getElementById('payerBank').value;
@@ -1117,39 +1238,67 @@
 
       triggerPulseAnimation();
 
+      const dispatchBtn = document.getElementById('dispatchBtn');
+      dispatchBtn.disabled = true;
+      dispatchBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Routing via Switch Engine...
+      `;
+
+      // Construct OpenAPI-Compliant Request Envelope
+      const payload = {
+        rail: rail,
+        rail_code: rail,
+        payer_bank: payer,
+        payee_bank: payee,
+        amount: amt,
+        cycle: cycle,
+        timestamp: new Date().toISOString()
+      };
+
       let txnResult = null;
       let isBackendLive = false;
 
       try {
-        const response = await fetch("/dispatch-clean", {
+        const response = await fetch("/v1/npci/execute", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
-          body: JSON.stringify({
-            rail: rail,
-            payer_bank: payer,
-            payee_bank: payee,
-            amount: amt,
-            cycle: cycle
-          })
+          body: JSON.stringify(payload)
         });
 
         if (response.ok) {
           txnResult = await response.json();
           isBackendLive = true;
+          document.getElementById('apiStatusBadge').className = "font-bold text-emerald-700 flex items-center gap-1.5";
+          document.getElementById('apiStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> ONLINE (200 OK)`;
         } else {
-          throw new Error(`HTTP ${response.status}`);
+          throw new Error(`HTTP Error ${response.status}`);
         }
       } catch (err) {
-        console.warn("Backend /dispatch-clean unreachable; local generator active:", err);
+        console.warn("Backend /v1/npci/execute offline or unreachable; using client-side engine fallback:", err);
+        document.getElementById('apiStatusBadge').className = "font-bold text-amber-700 flex items-center gap-1.5";
+        document.getElementById('apiStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> CLIENT FALLBACK (Active)`;
+        
+        // Client-side fallback generator
         const now = new Date();
         const start = new Date(now.getFullYear(), 0, 0);
         const dayOfYear = Math.floor((now - start) / (1000 * 60 * 60 * 24));
         const julianStr = String(now.getFullYear()).slice(-2) + String(dayOfYear).padStart(3, '0');
         const rrn = julianStr + String(Math.floor(100000 + Math.random() * 900000));
         const auth = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+        let status = "SUCCESS";
+        if (rail === "UPI_ASBA") {
+          status = "LIEN_BLOCKED";
+        } else if (rail === "UPI_LITE" && amt > 1000) {
+          status = "DECLINED_EXCEEDS_LITE_LIMIT";
+        }
 
         txnResult = {
           rrn: rrn,
@@ -1158,7 +1307,7 @@
           payer: payer,
           payee: payee,
           amount: amt,
-          status: "SUCCESS",
+          status: status,
           auth_code: auth,
           hops: [
             { hop_name: "App Gateway", latency_ms: (6 + Math.random() * 5).toFixed(1) },
@@ -1168,17 +1317,26 @@
             { hop_name: `Beneficiary (${payee})`, latency_ms: (18 + Math.random() * 9).toFixed(1) }
           ]
         };
+      } finally {
+        dispatchBtn.disabled = false;
+        dispatchBtn.innerHTML = `
+          <span>Dispatch to NPCI Gateway</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        `;
       }
 
-      ledgerRecords.push({
-        rrn: txnResult.rrn || ('26' + String(Math.floor(1000000000 + Math.random() * 9000000000))),
-        rail: rail,
-        cycle: cycle,
-        payer: payer,
-        payee: payee,
-        amount: amt,
-        status: txnResult.status || "SUCCESS"
-      });
+      // Commit to Local Circular 222 Ledger
+      if (txnResult.status === "SUCCESS" || txnResult.status === "LIEN_BLOCKED") {
+        ledgerRecords.push({
+          rrn: txnResult.rrn,
+          rail: rail,
+          cycle: cycle,
+          payer: payer,
+          payee: payee,
+          amount: amt,
+          status: txnResult.status
+        });
+      }
 
       totalTxns++;
       document.getElementById('txnCountBadge').innerText = `${totalTxns} txns`;
@@ -1186,22 +1344,18 @@
       const feed = document.getElementById('telemetryFeed');
       if (feed.innerText.includes('Switch idle')) feed.innerHTML = '';
 
+      const statusBadge = txnResult.status === "SUCCESS"
+        ? `<span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200">SUCCESS (${txnResult.auth_code || 'AUTH_OK'})</span>`
+        : (txnResult.status === "LIEN_BLOCKED" ? `<span class="text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200">LIEN HELD (${txnResult.auth_code || 'LIEN_OK'})</span>` : `<span class="text-rose-700 font-bold bg-rose-50 px-2 py-0.5 rounded-lg border border-rose-200">${txnResult.status}</span>`);
+
       const sourceBadge = isBackendLive 
         ? `<span class="text-[9px] bg-emerald-100 text-emerald-800 font-mono px-1.5 py-0.5 rounded">FastAPI Server</span>`
-        : `<span class="text-[9px] bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded">Local Fallback</span>`;
-
-      const hops = txnResult.hops || [
-        { hop_name: "App Gateway", latency_ms: (6 + Math.random() * 5).toFixed(1) },
-        { hop_name: `PSP (${payer})`, latency_ms: (12 + Math.random() * 7).toFixed(1) },
-        { hop_name: "NPCI Switch", latency_ms: (8 + Math.random() * 6).toFixed(1) },
-        { hop_name: `Remitter (${payer})`, latency_ms: (25 + Math.random() * 12).toFixed(1) },
-        { hop_name: `Beneficiary (${payee})`, latency_ms: (18 + Math.random() * 9).toFixed(1) }
-      ];
+        : `<span class="text-[9px] bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded">Sim Engine</span>`;
 
       const card = `
         <div class="p-3 bg-white border border-slate-200 rounded-2xl space-y-1.5 shadow-sm">
           <div class="flex justify-between items-center">
-            <span class="text-sky-600 font-bold text-[11px]">[${rail}] RRN: ${txnResult.rrn || '262478543277'}</span>
+            <span class="text-sky-600 font-bold text-[11px]">[${rail}] RRN: ${txnResult.rrn}</span>
             <div class="flex items-center gap-1.5">
               ${sourceBadge}
               <span class="text-slate-400 text-[10px]">${new Date().toLocaleTimeString()}</span>
@@ -1213,52 +1367,21 @@
           </div>
           <div class="flex justify-between items-center text-[10px]">
             <span class="text-slate-500 font-mono">Cycle: ${cycle}</span>
-            <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200">
-              SUCCESS (${txnResult.auth_code || 'AUTH_OK'})
-            </span>
+            ${statusBadge}
           </div>
           <div class="grid grid-cols-5 gap-1 pt-1.5 border-t border-slate-100 text-[9px] text-center">
-            ${hops.map(h => `<div class="bg-slate-50 p-1 rounded-lg border border-slate-200"><span class="text-slate-500 block truncate">${h.hop_name}</span><b class="text-sky-600">${h.latency_ms}ms</b></div>`).join('')}
+            ${(txnResult.hops || []).map(h => `<div class="bg-slate-50 p-1 rounded-lg border border-slate-200"><span class="text-slate-500 block truncate">${h.hop_name}</span><b class="text-sky-600">${h.latency_ms}ms</b></div>`).join('')}
           </div>
         </div>
       `;
       feed.insertAdjacentHTML('afterbegin', card);
     }
 
-    async function runNettingMath() {
+    function runNettingMath() {
       const cycle = document.getElementById('nettingCycleSelect').value;
       const out = document.getElementById('nettingResults');
-      out.innerHTML = '<div class="text-slate-400 italic text-center p-3">Executing e-Kuber batch settlement...</div>';
+      out.innerHTML = '';
 
-      try {
-        const response = await fetch(`/settle-clean/${cycle}`, {
-          method: "POST",
-          headers: { "Accept": "application/json" }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          out.innerHTML = `
-            <div class="p-3 bg-white rounded-xl border border-slate-200 space-y-1 shadow-sm">
-              <div class="flex justify-between items-center">
-                <span class="font-bold text-slate-900 text-xs font-mono">Cycle: ${cycle} Settlement Finalized</span>
-                <span class="text-emerald-700 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded">e-Kuber POSTED</span>
-              </div>
-              <div class="text-slate-600 text-[11px] font-mono">Total Transactions Cleared: <b>${data.txns || data.count || totalTxns || 3}</b></div>
-              <div class="text-teal-700 font-bold text-[11px] font-mono">Net Settlement Obligation: &#8377;${parseFloat(data.net_obligation || 4500).toFixed(2)}</div>
-            </div>
-            <div class="mt-2 pt-2 border-t border-slate-200 flex justify-between text-[11px] text-slate-800 font-semibold">
-              <span>Multilateral Netting Zero-Sum Proof:</span>
-              <b class="font-mono text-teal-600">&sum; Net Obligations = &#8377;0.00 (Balanced)</b>
-            </div>
-          `;
-          return;
-        }
-      } catch (err) {
-        console.warn("Live netting endpoint offline, executing local netting proof:", err);
-      }
-
-      // Local fallback calculation
       const filtered = ledgerRecords.filter(t => t.cycle === cycle && t.status === "SUCCESS");
       if (filtered.length === 0) {
         out.innerHTML = `<div class="text-slate-400 italic text-center p-3">No posted transactions found for ${cycle}. Dispatch transactions under this cycle first.</div>`;
@@ -1267,6 +1390,7 @@
 
       let totals = {};
       Object.keys(accounts).forEach(b => totals[b] = { dr: 0, cr: 0, count: 0 });
+
       filtered.forEach(t => {
         totals[t.payer].dr += t.amount;
         totals[t.payer].count++;
@@ -1274,7 +1398,6 @@
         totals[t.payee].count++;
       });
 
-      out.innerHTML = '';
       let netProofSum = 0;
       Object.keys(totals).forEach(b => {
         const item = totals[b];
@@ -1282,14 +1405,17 @@
           const net = item.cr - item.dr;
           netProofSum += net;
           const netClass = net >= 0 ? 'text-emerald-700' : 'text-rose-700';
+          const action = net >= 0 ? 'e-Kuber Inflow' : 'e-Kuber Outflow';
+
           out.insertAdjacentHTML('beforeend', `
             <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-sm">
               <div>
                 <b class="text-slate-900 text-xs font-mono">EKUBER-BANK:${b}</b>
-                <span class="text-slate-500 text-[10px] block">DR: &#8377;${item.dr.toFixed(2)} | CR: &#8377;${item.cr.toFixed(2)}</span>
+                <span class="text-slate-500 text-[10px] block">DR: &#8377;${item.dr.toFixed(2)} | CR: &#8377;${item.cr.toFixed(2)} (Txns: ${item.count})</span>
               </div>
               <div class="text-right">
                 <span class="${netClass} font-bold font-mono text-xs">Net: ${net >= 0 ? '+' : ''}&#8377;${net.toFixed(2)}</span>
+                <span class="text-[9px] text-slate-500 block uppercase font-semibold">${action}</span>
               </div>
             </div>
           `);
