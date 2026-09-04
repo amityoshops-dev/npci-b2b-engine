@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPCI Multi-Rail B2B Switch & Circular 222 Cockpit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bankNavy: '#0c1a30',
+            panelDark: '#112240',
+            accentTeal: '#00f2fe',
+            accentEmerald: '#10b981',
+            accentAmber: '#f59e0b',
+            accentRose: '#f43f5e',
+            borderNavy: '#233554'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bankNavy text-slate-100 min-h-screen font-sans">
+  <header class="border-b border-borderNavy bg-panelDark px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <span class="inline-block w-3 h-3 bg-accentEmerald rounded-full animate-ping"></span>
+      <div>
+        <h1 class="text-xl font-bold tracking-wide text-white">NPCI Enterprise Switch & B2B Settlement Engine</h1>
+        <p class="text-xs text-slate-400">17 Live Rails � ISO 20022/8583 � 5-Party Latency Telemetry � URCS Online Disputes � Circular 222</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 bg-amber-950/80 border border-amber-500/30 text-amber-400 text-xs font-mono rounded">URCS Dispute Engine: ACTIVE</span>
+      <span class="px-3 py-1 bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs font-mono rounded">RBI e-Kuber Connected</span>
+      <span class="px-3 py-1 bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-mono rounded">L7 Switch: ONLINE</span>
+    </div>
+  </header>
+
+  <main class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Left Column: Controls (Dispatcher & Disputes & Settlement) -->
+    <section class="lg:col-span-5 space-y-5">
+      <!-- 17-Rail Dispatcher -->
+      <div class="bg-panelDark border border-borderNavy rounded-xl p-5 shadow-lg">
+        <h2 class="text-sm font-semibold tracking-wider text-accentTeal uppercase mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Execute Switch Transaction
+        </h2>
+
+        <form id="txnForm" class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Select Payment Rail (17 Active Rails)</label>
+            <select id="rail" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-accentTeal">
+              <option value="UPI_P2M">UPI (P2M Merchant Dynamic QR)</option>
+              <option value="UPI_P2P">UPI (P2P Interbank Transfer)</option>
+              <option value="UPI_AUTOPAY">UPI AutoPay (Recurring Mandate SI)</option>
+              <option value="UPI_LITE">UPI Lite (On-Device Shadow Ledger = ?500)</option>
+              <option value="UPI_ASBA">UPI-ASBA (IPO Application Lien Block)</option>
+              <option value="UPI_123PAY">UPI 123PAY (IVR / Sound-Wave Offline)</option>
+              <option value="UPI_INTL">UPI International (NIPL Cross-Border)</option>
+              <option value="CREDIT_ON_UPI">Credit Lines on UPI</option>
+              <option value="IMPS">IMPS (Immediate Payment Service 24x7)</option>
+              <option value="AEPS">AePS (Aadhaar Biometric Micro-ATM)</option>
+              <option value="NACH">NACH (eNACH Bulk Direct Debit)</option>
+              <option value="NETC_FASTAG">NETC FASTag (Toll Plaza RFID)</option>
+              <option value="BBPS">BBPS (Bharat BillPay Biller Fetch/Pay)</option>
+              <option value="NFS_ATM">NFS (ATM ISO 8583 Interbank Cash)</option>
+              <option value="RUPAY_CARD">RuPay Domestic Card & Tokenisation</option>
+              <option value="CBDC_E_RUPEE">Digital Rupee (CBDC e? Sovereign Retail)</option>
+              <option value="E_RUPI">e-RUPI (Purpose-Bound Digital Voucher)</option>
+              <option value="CTS_CHEQUE">CTS (Cheque Truncation Grid Clearing)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Payer Bank</label>
+              <input type="text" id="payerBank" value="HDFC" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Payee Bank</label>
+              <input type="text" id="payeeBank" value="ICICI" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Payer Account</label>
+              <input type="text" id="payerAcc" value="9871100234" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Payee Account</label>
+              <input type="text" id="payeeAcc" value="5010048291" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Amount (? INR)</label>
+              <input type="number" id="amount" value="5000.00" step="0.01" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Clearing Cycle</label>
+              <select id="cycle" class="w-full bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-sm text-white font-mono">
+                <option value="C1">C1 (08:00 - 10:00)</option>
+                <option value="C2">C2 (10:00 - 11:30)</option>
+                <option value="C3">C3 (11:30 - 13:00)</option>
+                <option value="C4">C4 (13:00 - 14:30)</option>
+                <option value="C5">C5 (14:30 - 16:00)</option>
+                <option value="C6">C6 (16:00 - 17:30)</option>
+                <option value="C7">C7 (17:30 - 19:00)</option>
+                <option value="C8">C8 (19:00 - 20:30)</option>
+                <option value="C9">C9 (20:30 - 22:00)</option>
+                <option value="C10">C10 (22:00 - 23:59)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" onclick="executeTxn()" class="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-slate-900 font-bold py-2.5 px-4 rounded-md text-sm transition-all shadow-md flex items-center justify-center gap-2">
+            <span>Dispatch to Switch</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- URCS Online Dispute Resolution & Auto-Reversal -->
+      <div class="bg-panelDark border border-borderNavy rounded-xl p-5 shadow-lg">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-accentAmber mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          URCS Chargeback & Auto-Reversal
+        </h3>
+        <p class="text-xs text-slate-400 mb-3">Initiate a dispute for debited-not-credited legs and post to dispute cycle DC1/DC2.</p>
+        <div class="flex gap-2">
+          <input type="text" id="disputeRrn" placeholder="Enter 12-digit RRN" class="bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-xs text-white font-mono flex-1">
+          <button onclick="raiseDispute()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-4 py-2 rounded transition-all">
+            Raise Dispute
+          </button>
+        </div>
+      </div>
+
+      <!-- Circular 222 Multilateral Settlement -->
+      <div class="bg-panelDark border border-borderNavy rounded-xl p-5 shadow-lg">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-accentEmerald mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Circular 222 Settlement Engine
+        </h3>
+        <div class="flex gap-2">
+          <select id="settleCycle" class="bg-bankNavy border border-borderNavy rounded px-3 py-1.5 text-xs text-white font-mono flex-1">
+            <option value="C1">Run C1 Settlement</option>
+            <option value="C2">Run C2 Settlement</option>
+            <option value="C3">Run C3 Settlement</option>
+            <option value="C4">Run C4 Settlement</option>
+            <option value="C5">Run C5 Settlement</option>
+            <option value="C6">Run C6 Settlement</option>
+            <option value="C7">Run C7 Settlement</option>
+            <option value="C8">Run C8 Settlement</option>
+            <option value="C9">Run C9 Settlement</option>
+            <option value="C10">Run C10 Settlement</option>
+            <option value="DC1">Run DC1 (Dispute Netting)</option>
+            <option value="DC2">Run DC2 (Dispute Netting)</option>
+          </select>
+          <button onclick="runSettlement()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded transition-all">
+            Execute Netting
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Live Stream & 5-Party Latency Inspector -->
+    <section class="lg:col-span-7 space-y-6">
+      <!-- Live Switch Transactions Feed with Hop Breakdown -->
+      <div class="bg-panelDark border border-borderNavy rounded-xl p-5 shadow-lg">
+        <h2 class="text-sm font-semibold tracking-wider text-slate-300 uppercase mb-3 flex items-center justify-between">
+          <span>Live Switch Stream (pacs.008 Messages & 5-Party Hops)</span>
+          <span id="txnCount" class="text-xs font-mono bg-bankNavy px-2 py-0.5 rounded text-accentTeal">0 txns</span>
+        </h2>
+        <div id="txnStream" class="h-96 overflow-y-auto space-y-3 text-xs font-mono scrollbar-thin">
+          <div class="text-slate-500 italic p-6 text-center">No transactions dispatched yet.</div>
+        </div>
+      </div>
+
+      <!-- Multilateral Settlement Output (camt.053) -->
+      <div class="bg-panelDark border border-borderNavy rounded-xl p-5 shadow-lg">
+        <h2 class="text-sm font-semibold tracking-wider text-slate-300 uppercase mb-3 flex items-center justify-between">
+          <span>e-Kuber Clearing Statements (camt.053)</span>
+          <span class="text-xs text-accentEmerald">Circular 222 Multilateral Net</span>
+        </h2>
+        <div id="settlementStream" class="h-56 overflow-y-auto space-y-2 text-xs font-mono">
+          <div class="text-slate-500 italic p-4 text-center">Settlement engine idle.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let count = 0;
+
+    async function executeTxn() {
+      const railVal = document.getElementById('rail').value;
+      const payload = {
+        rail: railVal,
+        payer_account: document.getElementById('payerAcc').value,
+        payer_ifsc: document.getElementById('payerBank').value + '0001234',
+        payer_bank_code: document.getElementById('payerBank').value,
+        payee_account: document.getElementById('payeeAcc').value,
+        payee_ifsc: document.getElementById('payeeBank').value + '0005678',
+        payee_bank_code: document.getElementById('payeeBank').value,
+        amount_inr: parseFloat(document.getElementById('amount').value),
+        client_ref: 'REF-' + Math.random().toString(36).substring(7).toUpperCase(),
+        metadata: {
+          cts_grid: "WESTERN_GRID_MUMBAI",
+          cheque_no: String(Math.floor(100000 + Math.random() * 900000))
+        }
+      };
+
+      const cycle = document.getElementById('cycle').value;
+
+      try {
+        const res = await fetch(`/v1/npci/execute?cycle=${cycle}`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        const stream = document.getElementById('txnStream');
+        if (count === 0) stream.innerHTML = '';
+        count++;
+        document.getElementById('txnCount').innerText = count + ' txns';
+
+        const statusColor = data.status === 'SUCCESS' ? 'text-emerald-400 border-emerald-500/30' : (data.status === 'BLOCKED' ? 'text-amber-400 border-amber-500/30' : 'text-rose-400 border-rose-500/30');
+
+        let hopBars = '';
+        if (data.hops) {
+          hopBars = data.hops.map(h => `
+            <div class="bg-slate-900/60 p-1.5 rounded flex justify-between items-center text-[10px] border border-slate-800">
+              <span class="text-slate-300 font-semibold">${h.hop_name}</span>
+              <span class="text-cyan-400 font-mono">${h.latency_ms} ms</span>
+            </div>
+          `).join('');
+        }
+
+        const card = `
+          <div class="p-3.5 bg-bankNavy border ${statusColor} rounded-lg flex flex-col gap-2 shadow">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-accentTeal text-[13px]">[${data.rail}]</span>
+              <span class="text-slate-400 text-[11px]">${new Date(data.npci_transit_timestamp).toLocaleTimeString()}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span>RRN: <b class="text-white select-all cursor-pointer" onclick="document.getElementById('disputeRrn').value='${data.rrn}'">${data.rrn}</b> | MTI: <b>${data.mti}</b></span>
+              <span class="font-bold text-sm text-white">?${data.amount.toFixed(2)}</span>
+            </div>
+            <div class="flex justify-between text-slate-400 text-[11px]">
+              <span>${data.debtor_agent} ? ${data.creditor_agent}</span>
+              <span class="${statusColor} font-bold">${data.status} (${data.auth_code})</span>
+            </div>
+            <div class="mt-1 pt-2 border-t border-slate-800/80">
+              <div class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">5-Party Multi-Hop Telemetry</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5">
+                ${hopBars}
+              </div>
+            </div>
+          </div>
+        `;
+        stream.insertAdjacentHTML('afterbegin', card);
+      } catch (err) {
+        const errText = await res.text(); alert('Switch Error: ' + errText);
+      }
+    }
+
+    async function raiseDispute() {
+      const rrn = document.getElementById('disputeRrn').value.trim();
+      if (!rrn) {
+        alert('Please enter or click an RRN from the stream above.');
+        return;
+      }
+      try {
+        const res = await fetch('/v1/npci/dispute/raise', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ rrn: rrn, cycle_id: 'DC1' })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Dispute failed');
+        alert(`Dispute Filed Successfully!\nRRN: ${data.rrn}\nAction: ${data.action_taken}\nSettled in: ${data.settled_in_cycle}`);
+      } catch (err) {
+        alert('Dispute Error: ' + err.message);
+      }
+    }
+
+    async function runSettlement() {
+      const cycle = document.getElementById('settleCycle').value;
+      try {
+        const res = await fetch(`/v1/npci/settlement/run-cycle/${cycle}`, { method: 'POST' });
+        const stmts = await res.json();
+
+        const stream = document.getElementById('settlementStream');
+        stream.innerHTML = '';
+
+        if (stmts.length === 0) {
+          stream.innerHTML = `<div class="text-slate-500 italic p-4 text-center">No posted transactions found for cycle ${cycle}.</div>`;
+          return;
+        }
+
+        stmts.forEach(s => {
+          const obligationColor = s.net_obligation >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          const card = `
+            <div class="p-3 bg-bankNavy border border-borderNavy rounded space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-accentEmerald">${s.statement_id}</span>
+                <span class="text-slate-400">${s.clearing_cycle}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Account: <b class="text-white">${s.settlement_account}</b></span>
+                <span>Txns: <b>${s.transactions_count}</b></span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>DR: ?${s.net_debit_amount.toFixed(2)} | CR: ?${s.net_credit_amount.toFixed(2)}</span>
+                <span class="${obligationColor} font-bold">Net: ?${s.net_obligation.toFixed(2)}</span>
+              </div>
+            </div>
+          `;
+          stream.insertAdjacentHTML('beforeend', card);
+        });
+      } catch (err) {
+        alert('Settlement Engine Error: ' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
