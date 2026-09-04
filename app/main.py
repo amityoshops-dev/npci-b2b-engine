@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from app.core.database import Base, engine
@@ -34,7 +34,7 @@ HTML_CONTENT = """<!DOCTYPE html>
   <header class="pb-4 border-b border-slate-800 flex justify-between items-center">
     <div>
       <h1 class="text-xl font-bold text-white">NPCI Switch & B2B Settlement Engine</h1>
-      <p class="text-xs text-slate-400">17 Rails · 5-Party Latency Telemetry · Circular 222 Clearing</p>
+      <p class="text-xs text-slate-400">17 Rails � 5-Party Latency Telemetry � Circular 222 Clearing</p>
     </div>
     <span class="px-3 py-1 bg-emerald-950 text-emerald-400 text-xs border border-emerald-800 rounded">Switch ONLINE</span>
   </header>
@@ -51,11 +51,11 @@ HTML_CONTENT = """<!DOCTYPE html>
               <option value="UPI_P2M">UPI (P2M Merchant QR)</option>
               <option value="UPI_P2P">UPI (P2P Transfer)</option>
               <option value="UPI_ASBA">UPI-ASBA (IPO Block Lien)</option>
-              <option value="UPI_LITE">UPI Lite (≤ ₹500)</option>
+              <option value="UPI_LITE">UPI Lite (= ?500)</option>
               <option value="IMPS">IMPS (24x7 Interbank)</option>
               <option value="RUPAY_CARD">RuPay Domestic Card</option>
               <option value="CTS_CHEQUE">CTS (Cheque Truncation)</option>
-              <option value="CBDC_E_RUPEE">Digital Rupee (e₹)</option>
+              <option value="CBDC_E_RUPEE">Digital Rupee (e?)</option>
             </select>
           </div>
           <div class="grid grid-cols-2 gap-3">
@@ -70,7 +70,7 @@ HTML_CONTENT = """<!DOCTYPE html>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Amount (₹)</label>
+              <label class="block text-xs text-slate-400 mb-1">Amount (?)</label>
               <input id="amount" type="number" value="1500" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-sm">
             </div>
             <div>
@@ -150,10 +150,10 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1">
           <div class="flex justify-between text-cyan-400 font-bold">
             <span>[${d.rail}] RRN: ${d.rrn}</span>
-            <span>₹${d.amount}</span>
+            <span>?${d.amount}</span>
           </div>
           <div class="text-slate-400 text-[11px] flex justify-between">
-            <span>${d.debtor_agent} ➔ ${d.creditor_agent}</span>
+            <span>${d.debtor_agent} ? ${d.creditor_agent}</span>
             <span class="text-emerald-400">${d.status} (${d.auth_code})</span>
           </div>
           <div class="grid grid-cols-5 gap-1 pt-1 text-[10px] text-slate-500">
@@ -177,7 +177,7 @@ HTML_CONTENT = """<!DOCTYPE html>
           <div class="p-2 bg-slate-950 border border-slate-800 rounded text-[11px] flex justify-between">
             <span>${item.settlement_account}</span>
             <span class="${item.net_obligation >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">
-              Net: ₹${item.net_obligation} (Txns: ${item.transactions_count})
+              Net: ?${item.net_obligation} (Txns: ${item.transactions_count})
             </span>
           </div>
         `);
