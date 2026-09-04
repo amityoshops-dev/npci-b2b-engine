@@ -3,6 +3,15 @@ import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from app.routers import rails
+from app.core.database import engine, Base
+import app.core.ledger
+
+# Create all SQL tables (postings, journal_entries) on startup
+try:
+    Base.metadata.create_all(bind=engine)
+    print("Database tables initialized successfully.")
+except Exception as e:
+    print(f"Database initialization error: {e}")
 
 app = FastAPI(title="NPCI Clean Engine")
 
